@@ -1,12 +1,20 @@
+import React from 'react';
 import './App.css';
-import Home from './component/Home';
+import CreateAccount from './component/CreateAccount';
+import Login from './component/Login';
+import Body from './component/Body';
+import Product from './component/ProductList';
+import Header from './component/Header';
+import { Counter } from './component/Counter';
 
 function App() {
   return (
     <div className="App">
-      <Home/>
+      <Header/>
+      <Body/>
+      {/* <CreateAccount/> */}
     </div>
-  );
+  )
 }
 
 export default App;
