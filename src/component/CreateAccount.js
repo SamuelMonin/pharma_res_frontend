@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { goLogin, reset } from '../redux/login'
+import { setNewAccount, goCodeValidation, reset } from '../redux/login'
 
 export default function CreateAccount() {
 
@@ -15,12 +15,12 @@ export default function CreateAccount() {
     const[mail, setMail] = useState("")
     const[password, setPassword] = useState("")
     const[passwordConfirmation, setPasswordConfirmation] = useState("")
+    
 
-
-    const addItem = async (newObj) => {
+    const sendMail = async () => {
       try {
         if(password === passwordConfirmation){
-          await axios.post('http://localhost:5501/api/users/put-item', newObj)
+          await axios.post('http://localhost:5501/api/users/send-mail')
         }
       } catch (err) {
           console.log(err);
@@ -56,21 +56,23 @@ export default function CreateAccount() {
                         )
                     }
                     else {
-                        addItem({
+                        sendMail()
+                        dispatch(setNewAccount({
                             login: login,
                             password: password,
                             mail: mail,
-                        })
+                        }
+                        ))
                         dispatch(reset())
-                        dispatch(goLogin())
+                        dispatch(goCodeValidation())
                         return (
-                            alert("Votre compte : '" + login + "' a été créé.")
+                            alert("Un code de validation vient d'être envoyé à votre adresse mail.")
                         )
 
                     }
                 }
                 }
-            >Subbmit</Button>
+            >Valider</Button>
 
       </div>
     )

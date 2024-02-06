@@ -5,6 +5,7 @@ import CreateAccount from './CreateAccount';
 import Product from './Product';
 import { Cart } from './Cart';
 import { Command } from './Command';
+import { CodeValidation } from './CodeValidation';
 
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -16,6 +17,7 @@ export default function Body() {
     const showCreateAccount = useSelector((state) => state.login.showCreateAccount)
     const showCart = useSelector((state) => state.login.showCart)
     const showCommand = useSelector((state) => state.login.showCommand)
+    const showCodeValidation = useSelector((state) => state.login.showCodeValidation)
 
     if (showLogin === true) {
         return (
@@ -50,6 +52,12 @@ export default function Body() {
     if (showCommand === true) {
         return (
             <Command/>
+        )
+    }
+
+    if (showCodeValidation === true) {
+        return (
+            <CodeValidation/>
         )
     }
 

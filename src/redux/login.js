@@ -8,9 +8,11 @@ const initialState = {
   showCreateAccount: false,
   showCart: false,
   showCommand: false,
+  showCodeValidation: false,
   selectedProduct: {},
   user: {},
-  cart: []
+  cart: [],
+  newAccount: {}
 }
 
 export const LoginSlice = createSlice({
@@ -41,6 +43,9 @@ export const LoginSlice = createSlice({
     goCommand: (state) => {
         state.showCommand = true
     },
+    goCodeValidation: (state) => {
+        state.showCodeValidation = true
+    },
     reset: (state) => {
         state.showLogin = false
         state.showProduct = false
@@ -48,6 +53,7 @@ export const LoginSlice = createSlice({
         state.showCreateAccount = false
         state.showCart = false
         state.showCommand = false
+        state.showCodeValidation = false
     },
     selectProduct : (state, action) => {
         state.selectedProduct = action.payload
@@ -58,10 +64,13 @@ export const LoginSlice = createSlice({
     setUser: (state, action) => {
         state.user = action.payload
     },
+    setNewAccount: (state, action) => {
+        state.newAccount = action.payload
+    },
   },
 })
 
 
-export const { connected, unConnected, goLogin, goProduct, goProductList, goCreateAccount, goCart, goCommand, reset, selectProduct, addToCart, setUser } = LoginSlice.actions
+export const { connected, unConnected, goLogin, goProduct, goProductList, goCreateAccount, goCart, goCommand, goCodeValidation, reset, selectProduct, addToCart, setUser, setNewAccount } = LoginSlice.actions
 
 export default LoginSlice.reducer
