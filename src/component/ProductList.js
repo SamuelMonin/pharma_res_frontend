@@ -10,6 +10,7 @@ export default function ProductList() {
     const dispatch = useDispatch();
     const [products, setProducts] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         axios.get('http://localhost:5501/api/products')
@@ -25,10 +26,28 @@ export default function ProductList() {
         dispatch(goProduct());
     };
 
-    // Fonction de filtrage des produits en fonction du terme de recherche
     const filteredProducts = products.filter(product =>
         product.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const getProductsForPage = () => {
+        const startIndex = (page - 1) * 9;
+        const endIndex = startIndex + 9;
+        return filteredProducts.slice(startIndex, endIndex);
+    };
+
+    const handleChangePage = (event, value) => {
+        setPage(value);
+    };
+
+
+    const splitProductsIntoRows = (products) => {
+        const rows = [];
+        for (let i = 0; i < products.length; i += 3) {
+            rows.push(products.slice(i, i + 3));
+        }
+        return rows;
+    };
 
     return (
         <div>
@@ -49,21 +68,38 @@ export default function ProductList() {
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredProducts.map(product => (
-                        <tr key={product._id}>
-                            <td>{product.description}</td>
-                            <td>{product.price.toString()}</td>
-                            <td>{product.score.toString()}</td>
-                            <td>
-                                <Button variant="outlined" onClick={() => handleValidation(product)}>
-                                    Voir le produit
-                                </Button>
-                            </td>
+                    {splitProductsIntoRows(getProductsForPage()).map((row, rowIndex) => (
+                        <tr key={rowIndex}>
+                            {row.map(product => (
+                                <td key={product._id}>
+                                    <div>
+                                        <p>{product.description}</p>
+                                        <p>{product.price.toString()}</p>
+                                        <p>{product.score.toString()}</p>
+                                        <Button variant="outlined" onClick={() => handleValidation(product)}>
+                                            Voir le produit
+                                        </Button>
+                                    </div>
+                                </td>
+                            ))}
+
+                            {row.length < 3 && (
+                                <React.Fragment>
+                                    {Array.from({ length: 3 - row.length }, (_, index) => (
+                                        <td key={`empty_${index}`} />
+                                    ))}
+                                </React.Fragment>
+                            )}
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <Pagination count={10} color="primary" />
+            <Pagination
+                count={Math.ceil(filteredProducts.length / 9)}
+                page={page}
+                color="primary"
+                onChange={handleChangePage}
+            />
         </div>
     );
 }

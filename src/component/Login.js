@@ -10,65 +10,76 @@ import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import axios from 'axios'
-
 import { useSelector, useDispatch } from 'react-redux'
 import { connected, goCreateAccount, goProductList, reset, setUser } from '../redux/login'
 
-
 export default function Login() {
-
-
     const dispatch = useDispatch()
-
-    const[login, setLogin] = useState("");
-    const[password, setPassword] = useState("");
-    const[users, setUsers] = useState([]);
+    const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
+    const [users, setUsers] = useState([]);
+    const [message, setMessage] = useState("");
+    const [messageColor, setMessageColor] = useState("");
+    const [error, setError] = useState("");
     const [showPassword, setShowPassword] = React.useState(false);
-
     const handleClickShowPassword = () => setShowPassword((show) => !show);
   
     const handleMouseDownPassword = (event) => {
       event.preventDefault();
     };
 
+    // useEffect(() => {
+    //     axios.get('http://localhost:5501/api/users/login')
+    //       .then(response => {
+    //         console.log(response.data);
+    //         setUsers(response.data);    
+    //       })
+    //       .catch(err => console.log(err));
+    //   }, []);
 
-    useEffect(() => {
-        axios.get('http://localhost:5501/api/users')
-          .then(response => {
-            console.log(response.data);
-            setUsers(response.data);    
-          })
-          .catch(err => console.log(err));
-      }, []);
+    // const handleValidation = () => {
+    //     users.forEach((user) => {
+    //         if (user.login === login && user.password === password) {
+    //           dispatch(connected());
+    //           dispatch(setUser(user));
+    //           dispatch(reset())
+    //           dispatch(goProductList())
+    //         }
+    //       });
+    // };
 
-    const handleValidation = () => {
-
-        users.forEach((user) => {
-            if (user.login === login && user.password === password) {
-              dispatch(connected());
-              dispatch(setUser(user));
-              dispatch(reset())
-              dispatch(goProductList())
+    const log = async () => {
+        try {
+            const response = await axios.post('http://localhost:5501/api/users/login', { login, password });
+                dispatch(connected());
+                dispatch(setUser({
+                    login: login,
+                    password: password
+                }));
+                dispatch(reset())
+                dispatch(goProductList())
+                console.log(response.data.token)
+                localStorage.setItem("token", response.data.token)
+        } catch (error) {
+            if (error.response) {
+                setError(error.response.data.message);
+            } else {
+                console.error('Erreur:', error.message);
             }
-          });
-
-    };
+        }
+    }
 
     const createAccount = () => {
-
         dispatch(reset())
         dispatch(goCreateAccount())
-
     }
 
     return (
         <div>
             <h1>Se connecter :</h1>
-
             <TextField id="outlined-basic" label="Login" variant="outlined" 
                 onChange={(e) => { setLogin(e.target.value);}}
             />
-
             <FormControl variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                 <OutlinedInput
@@ -90,10 +101,9 @@ export default function Login() {
                     label="Password"
                 />
             </FormControl>
-
-            <Button variant="outlined" onClick={handleValidation}>Valider</Button>
+            <Button variant="outlined" onClick={log}>Valider</Button>
             <Button variant="outlined" onClick={createAccount}>Se créer un compte</Button>
-
+            {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
     )
 }
