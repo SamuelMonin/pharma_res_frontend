@@ -29,7 +29,7 @@ export default function Login() {
     };
 
     // useEffect(() => {
-    //     axios.get('http://localhost:5501/api/users/login')
+    //     axios.get('https://pharma-res-backend.onrender.com/api/users/login')
     //       .then(response => {
     //         console.log(response.data);
     //         setUsers(response.data);    
@@ -50,7 +50,7 @@ export default function Login() {
 
     const log = async () => {
         try {
-            const response = await axios.post('http://localhost:5501/api/users/login', { login, password });
+            const response = await axios.post('https://pharma-res-backend.onrender.com/api/users/login', { login, password });
                 dispatch(connected());
                 dispatch(setUser({
                     login: login,

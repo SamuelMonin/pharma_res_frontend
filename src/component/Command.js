@@ -36,7 +36,7 @@ export function Command() {
                     user: user
                 };
 
-                await axios.post('http://localhost:5501/api/commands/put-item', newObj);
+                await axios.post('https://pharma-res-backend.onrender.com/api/commands/put-item', newObj);
 
                 dispatch(reset())
                 dispatch(goProductList())
