@@ -13,7 +13,7 @@ export default function ProductList() {
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        axios.get('https://pharma-res-backend.onrender.com/api/products')
+        axios.get('http://localhost:5501/api/products')
             .then(response => {
                 setProducts(response.data);
             })

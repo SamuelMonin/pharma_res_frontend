@@ -17,7 +17,7 @@ export default function CreateAccount() {
     
     const sendMail = async () => {
       try {
-          await axios.post('https://pharma-res-backend.onrender.com/api/users/send-mail', {
+          await axios.post('http://localhost:5501/api/users/send-mail', {
             login: login,
             mail: mail,
             password: password,

@@ -11,7 +11,6 @@ const initialState = {
   showCodeValidation: false,
   selectedProduct: {},
   user: {},
-  cart: [],
   newAccount: {}
 }
 
@@ -58,9 +57,6 @@ export const LoginSlice = createSlice({
     selectProduct : (state, action) => {
         state.selectedProduct = action.payload
     },
-    addToCart: (state, action) => {
-        state.cart.push(action.payload);
-    },
     setUser: (state, action) => {
         state.user = action.payload
     },
@@ -71,6 +67,6 @@ export const LoginSlice = createSlice({
 })
 
 
-export const { connected, unConnected, goLogin, goProduct, goProductList, goCreateAccount, goCart, goCommand, goCodeValidation, reset, selectProduct, addToCart, setUser, setNewAccount } = LoginSlice.actions
+export const { connected, unConnected, goLogin, goProduct, goProductList, goCreateAccount, goCart, goCommand, goCodeValidation, reset, selectProduct, setUser, setNewAccount } = LoginSlice.actions
 
 export default LoginSlice.reducer

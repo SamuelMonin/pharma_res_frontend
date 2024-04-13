@@ -15,7 +15,7 @@ export function CodeValidation() {
 
     const handleValidation = async (data) => {
         try {
-            const response = await axios.post('https://pharma-res-backend.onrender.com/api/users/put-item', data)
+            const response = await axios.post('http://localhost:5501/api/users/put-item', data)
             dispatch(reset())
             dispatch(goLogin())
         } catch (error) {
