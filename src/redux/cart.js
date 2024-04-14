@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     cart: [],
+    totalPrice: 0
 }
 
 export const CartSlice = createSlice({
@@ -9,23 +10,31 @@ export const CartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-        const isProductAlreadyInCart = state.cart.find(product => product._id === action.payload._id);
-        console.log("isProductAlreadyInCart : ", isProductAlreadyInCart)
-        if(isProductAlreadyInCart) {
-            const updatedCart = state.cart.map(product => {
-                if (product._id === action.payload._id) {
-                    return { ...product, quantity: product.quantity + action.payload.quantity };
-                }
-                return product;
-            });
-            state.cart = updatedCart
+        const productIndex = state.cart.findIndex(product => product._id === action.payload._id);
+        if(productIndex >= 0) {
+            const updatedProduct = {...state.cart[productIndex], quantity: state.cart[productIndex].quantity + action.payload.quantity};
+            state.cart[productIndex] = updatedProduct;
         } else {
             state.cart.push(action.payload);
         }
     },
+    deleteFromCart: (state, action) => {
+        const updatedCart = [...state.cart.slice(0, action.payload), ...state.cart.slice(action.payload + 1)];
+        state.cart = updatedCart
+    },
+    updateTotalPrice: (state) => {
+        let newTotalPrice = 0
+        state.cart.forEach( product =>
+            newTotalPrice += product.quantity * product.price )
+        state.totalPrice = newTotalPrice
+    },
+    resetCart: (state) => {
+        state.cart = []
+    }
+    }
   },
-})
+)
 
-export const { addToCart } = CartSlice.actions
+export const { addToCart, deleteFromCart, updateTotalPrice, resetCart } = CartSlice.actions
 
 export default CartSlice.reducer

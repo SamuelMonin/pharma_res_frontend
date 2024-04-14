@@ -58,7 +58,7 @@ export default function Login() {
                 }));
                 dispatch(reset())
                 dispatch(goProductList())
-                console.log(response.data.token)
+                console.log("response.data.token : ", response.data.token)
                 localStorage.setItem("token", response.data.token)
         } catch (error) {
             if (error.response) {

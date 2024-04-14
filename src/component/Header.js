@@ -68,7 +68,7 @@ export default function Header() {
                         <Button color="inherit" onClick={login} >Se connecter</Button>
                     ) : null}
 
-                    {isLogin === false ? (
+                    {isLogin === true ? (
                         <p>{user.login}</p>
                     ) : null}
 

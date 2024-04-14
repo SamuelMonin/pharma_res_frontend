@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useSelector, useDispatch } from 'react-redux'
 import { reset, goCart } from '../redux/login'
-import { addToCart } from '../redux/cart'
+import { addToCart, updateTotalPrice } from '../redux/cart'
 
 
 export default function Product() {
@@ -13,11 +13,13 @@ export default function Product() {
     const dispatch = useDispatch()
     const selectedProduct = useSelector((state) => state.login.selectedProduct)
     const[quantity, setQuantity] = useState(1);
+
     const addToCartAction = (quantity) => {
         const updatedSelectedProduct = { ...selectedProduct, quantity };
         dispatch(addToCart(updatedSelectedProduct));
         dispatch(reset());
         dispatch(goCart());
+        dispatch(updateTotalPrice());
     }
 
     return(
