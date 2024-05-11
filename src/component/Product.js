@@ -1,17 +1,16 @@
 import React from 'react';
 import {Component, useEffect, useState} from 'react';
-import axios from 'axios'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useSelector, useDispatch } from 'react-redux'
-import { reset, goCart } from '../redux/login'
+import { reset, goCart } from '../redux/view'
 import { addToCart, updateTotalPrice } from '../redux/cart'
 
 
 export default function Product() {
 
     const dispatch = useDispatch()
-    const selectedProduct = useSelector((state) => state.login.selectedProduct)
+    const selectedProduct = useSelector((state) => state.view.selectedProduct)
     const[quantity, setQuantity] = useState(1);
 
     const addToCartAction = (quantity) => {

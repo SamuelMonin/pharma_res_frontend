@@ -11,42 +11,21 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
-import { connected, goCreateAccount, goProductList, reset, setUser } from '../redux/login'
+import { goCreateAccount, goProductList, reset, setUser } from '../redux/view'
+import { connected } from '../redux/login'
 
 export default function Login() {
     const dispatch = useDispatch()
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
-    const [users, setUsers] = useState([]);
-    const [message, setMessage] = useState("");
-    const [messageColor, setMessageColor] = useState("");
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = React.useState(false);
+
     const handleClickShowPassword = () => setShowPassword((show) => !show);
   
     const handleMouseDownPassword = (event) => {
       event.preventDefault();
     };
-
-    // useEffect(() => {
-    //     axios.get('http://localhost:5501/api/users/login')
-    //       .then(response => {
-    //         console.log(response.data);
-    //         setUsers(response.data);    
-    //       })
-    //       .catch(err => console.log(err));
-    //   }, []);
-
-    // const handleValidation = () => {
-    //     users.forEach((user) => {
-    //         if (user.login === login && user.password === password) {
-    //           dispatch(connected());
-    //           dispatch(setUser(user));
-    //           dispatch(reset())
-    //           dispatch(goProductList())
-    //         }
-    //       });
-    // };
 
     const log = async () => {
         try {

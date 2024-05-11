@@ -3,16 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { reset, goProductList } from '../redux/login';
+import { reset, goProductList } from '../redux/view';
 import { resetCart } from '../redux/cart';
 
 export function Command() {
     
     const dispatch = useDispatch();
     const [adresse, setAdresse] = useState("");
-    const totalPrice = useSelector((state) => state.login.totalPrice);
+    const totalPrice = useSelector((state) => state.view.totalPrice);
     const cart = useSelector((state) => state.cart.cart);
-    const user = useSelector((state) => state.login.user);
+    const user = useSelector((state) => state.view.user);
 
     const addItem = async () => {
         const userToken = localStorage.getItem('token');
@@ -32,6 +32,9 @@ export function Command() {
             dispatch(reset())
             dispatch(goProductList())
             dispatch(resetCart())
+            return (
+                alert("Votre commande a été effectué!")
+            )
         } catch (err) {
         console.log(err);
     }

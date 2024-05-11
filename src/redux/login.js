@@ -23,7 +23,7 @@ export const LoginSlice = createSlice({
     },
     unConnected: (state) => {
         state.isLogin = false
-      },
+    },
     goLogin: (state) => {
         state.showLogin = true
     },

@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import UpdateIcon from '@mui/icons-material/Update';
-import { reset, goLogin, goCommand, goCart } from '../redux/login';
+import { reset, goLogin, goCommand, goProductList } from '../redux/view';
 import { deleteFromCart, updateTotalPrice } from '../redux/cart';
 
 
@@ -26,16 +26,23 @@ export function Cart() {
         // totalPrice += product.price * product.quantity
     });
 
-    const handleValidation = () => {
-        if(isLogin ===  true){
+    const cartValidation = () => {
+        console.log("cart.length : ", cart.length)
+        if(isLogin ===  true & cart.length > 0){
             dispatch(reset())
             dispatch(goCommand())
+        } else if (cart.length === 0) {
+            dispatch(reset())
+            dispatch(goProductList())
+            return (
+                alert("Votre panier est vide.")
+            )
         }
         else {
             dispatch(reset())
             dispatch(goLogin())
             return (
-                alert("Connectez-vous pour valider votre panier !")
+                alert("Connectez-vous pour valider votre panier!")
             )
         }
     };
@@ -74,7 +81,7 @@ export function Cart() {
                 </Box>
                 <Box>
                     <p>Total (pour {numberProducts} produits) : {totalPrice}</p>
-                    <Button variant="outlined" onClick={()=>handleValidation()}>Valider votre panier</Button>
+                    <Button variant="outlined" onClick={()=>cartValidation()}>Valider votre panier</Button>
                 </Box>
             </Stack>
         </div>

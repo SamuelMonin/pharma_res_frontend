@@ -11,13 +11,13 @@ import { useSelector, useDispatch } from 'react-redux'
 
 export default function Body() {
 
-    const showLogin = useSelector((state) => state.login.showLogin)
-    const showProduct = useSelector((state) => state.login.showProduct)
-    const showProductList = useSelector((state) => state.login.showProductList)
-    const showCreateAccount = useSelector((state) => state.login.showCreateAccount)
-    const showCart = useSelector((state) => state.login.showCart)
-    const showCommand = useSelector((state) => state.login.showCommand)
-    const showCodeValidation = useSelector((state) => state.login.showCodeValidation)
+    const showLogin = useSelector((state) => state.view.showLogin)
+    const showProduct = useSelector((state) => state.view.showProduct)
+    const showProductList = useSelector((state) => state.view.showProductList)
+    const showCreateAccount = useSelector((state) => state.view.showCreateAccount)
+    const showCart = useSelector((state) => state.view.showCart)
+    const showCommand = useSelector((state) => state.view.showCommand)
+    const showCodeValidation = useSelector((state) => state.view.showCodeValidation)
 
     if (showLogin === true) {
         return (

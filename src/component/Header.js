@@ -3,72 +3,61 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { goLogin, reset, unConnected, goProductList, goCart } from '../redux/login'
+import { goLogin, reset, goProductList, goCart } from '../redux/view'
+import { unConnected } from '../redux/login'
 
 export default function Header() {
 
     const dispatch = useDispatch()
-
     const isLogin = useSelector((state) => state.login.isLogin)
-    const user = useSelector((state) => state.login.user)
+    const user = useSelector((state) => state.view.user)
 
     const login = () => {
-
         dispatch(reset())
         dispatch(goLogin())
-
+        console.log("isLogin : ", isLogin)
     }
 
     const logout = () => {
-
         dispatch(reset())
         dispatch(goLogin())
         dispatch(unConnected())
-
+        localStorage.removeItem("token")
     }
 
     const home = () => {
-
         dispatch(reset())
         dispatch(goProductList())
-
     }
 
     const cart = () => {
-
         dispatch(reset())
         dispatch(goCart())
-
     }
 
     return (
+        <div>
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                    <MenuIcon />
-                    </IconButton>
+                        
                     <Button color="inherit" onClick={home} >PharmaRes</Button>
-
-                    {isLogin ? (
+                
+                    {(isLogin === true) ? (
                         <Button color="inherit" onClick={logout} >Se déconnecter</Button>
                     ) : null}
 
-                    {isLogin === false ? (
+                    {(isLogin === false) ? (
                         <Button color="inherit" onClick={login} >Se connecter</Button>
                     ) : null}
 
-                    {isLogin === true ? (
+                    {(isLogin === true) ? (
                         <p>{user.login}</p>
                     ) : null}
 
@@ -77,5 +66,6 @@ export default function Header() {
                 </Toolbar>
             </AppBar>
         </Box>
+    </div>
     );
 }

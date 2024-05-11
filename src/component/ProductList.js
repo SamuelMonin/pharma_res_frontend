@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Pagination from '@mui/material/Pagination';
 import { useDispatch } from 'react-redux';
-import { selectProduct, goProduct, reset } from '../redux/login';
+import { selectProduct, goProduct, reset } from '../redux/view';
 
 export default function ProductList() {
     const dispatch = useDispatch();

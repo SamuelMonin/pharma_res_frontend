@@ -3,7 +3,7 @@ import {Component, useEffect, useState} from 'react';
 import axios from 'axios'
 import { TextField, Button  } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux'
-import { goLogin, reset } from '../redux/login'
+import { goLogin, reset } from '../redux/view'
 
 
 export function CodeValidation() {

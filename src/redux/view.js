@@ -1,19 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  showLogin: false,
-  showProduct: false,
-  showProductList: true,
-  showCreateAccount: false,
-  showCart: false,
-  showCommand: false,
-  showCodeValidation: false,
+    isLogin: false,
+    showLogin: false,
+    showProduct: false,
+    showProductList: true,
+    showCreateAccount: false,
+    showCart: false,
+    showCommand: false,
+    showCodeValidation: false,
+    user: {},
 }
 
 export const ViewSlice = createSlice({
   name: 'view',
   initialState,
   reducers: {
+    connected: (state) => {
+        state.isLogin = true
+    },
+    unConnected: (state) => {
+          state.isLogin = false
+    },
     goLogin: (state) => {
         state.showLogin = true
     },
@@ -47,9 +55,12 @@ export const ViewSlice = createSlice({
     selectProduct : (state, action) => {
         state.selectedProduct = action.payload
     },
+    setUser: (state, action) => {
+        state.user = action.payload
+    },
   },
 })
 
-export const { goLogin, goProduct, goProductList, goCreateAccount, goCart, goCommand, goCodeValidation, reset, selectProduct } = ViewSlice.actions
+export const { connected, goLogin, goProduct, goProductList, goCreateAccount, goCart, goCommand, goCodeValidation, reset, selectProduct, setUser } = ViewSlice.actions
 
 export default ViewSlice.reducer
