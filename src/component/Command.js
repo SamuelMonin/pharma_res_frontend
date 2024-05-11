@@ -12,7 +12,9 @@ export function Command() {
     const [adresse, setAdresse] = useState("");
     const totalPrice = useSelector((state) => state.view.totalPrice);
     const cart = useSelector((state) => state.cart.cart);
-    const user = useSelector((state) => state.view.user);
+    const user = useSelector((state) => state.login.user);
+
+    console.log("user : ", user)
 
     const addItem = async () => {
         const userToken = localStorage.getItem('token');

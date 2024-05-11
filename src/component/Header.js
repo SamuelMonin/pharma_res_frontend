@@ -16,7 +16,7 @@ export default function Header() {
 
     const dispatch = useDispatch()
     const isLogin = useSelector((state) => state.login.isLogin)
-    const user = useSelector((state) => state.view.user)
+    const user = useSelector((state) => state.login.user)
 
     const login = () => {
         dispatch(reset())

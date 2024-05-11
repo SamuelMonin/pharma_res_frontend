@@ -9,7 +9,6 @@ const initialState = {
     showCart: false,
     showCommand: false,
     showCodeValidation: false,
-    user: {},
 }
 
 export const ViewSlice = createSlice({
@@ -55,12 +54,9 @@ export const ViewSlice = createSlice({
     selectProduct : (state, action) => {
         state.selectedProduct = action.payload
     },
-    setUser: (state, action) => {
-        state.user = action.payload
-    },
   },
 })
 
-export const { connected, goLogin, goProduct, goProductList, goCreateAccount, goCart, goCommand, goCodeValidation, reset, selectProduct, setUser } = ViewSlice.actions
+export const { connected, goLogin, goProduct, goProductList, goCreateAccount, goCart, goCommand, goCodeValidation, reset, selectProduct } = ViewSlice.actions
 
 export default ViewSlice.reducer

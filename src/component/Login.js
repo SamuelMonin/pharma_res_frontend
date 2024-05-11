@@ -11,8 +11,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
-import { goCreateAccount, goProductList, reset, setUser } from '../redux/view'
-import { connected } from '../redux/login'
+import { goCreateAccount, goProductList, reset } from '../redux/view'
+import { connected, setUser } from '../redux/login'
 
 export default function Login() {
     const dispatch = useDispatch()
