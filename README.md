@@ -1,6 +1,6 @@
 # PharmaRes front-end
 
-This repesitory contains PharmaRes front-end developed with React Native.
+This repesitory contains PharmaRes front-end developed with React.
 
 PharmaRes is an application built for an academic project allowing people to command pharmaceutical products.
 
